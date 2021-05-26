@@ -1,0 +1,44 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1 class="mt-4">Supplier List</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Supplier</li>
+</ol>
+<div class="card mb-4">
+    <div class="card-header">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+            <div>
+                <i class="fas fa-table me-1"></i>
+                List of Supplier
+            </div>
+            <div class="story">
+            <a class="btn btn-primary " href="{% url 'supplier_create_view' %}" role="button" up-modal=".simple_create" up-width="50%">Create Supplier</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Contact Person</th>
+                    <th>Contact Number</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for supplier in suppliers %}
+            <tr>
+                <td><a href=" {% url 'supplier_detail_view' supplier.slug %}" up-target=".content_container" up-transition="move-left">{{ supplier.company_name }}</a></td>
+                <td>{{ supplier.contact_person }}</td>
+                <td>{{ supplier.contact_no }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,63 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1 class="mt-4">Product List</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Products</li>
+</ol>
+<div class="card mb-4">
+    <div class="card-header">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+            <div>
+                <i class="fas fa-table me-1"></i>
+                List of Products
+            </div>
+            <a class="btn btn-primary " href="{% url 'supplier_create_view' %}" role="button" up-modal=".simple_create" up-width="50%">Create Supplier</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+                <tr>
+                    <th>Supplier Name</th>
+                    <th>Product Name</th>
+                    <th>Number of Stock</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+            <tr>
+                <td>
+                <a 
+                href="{% url 'supplier_detail_view' product.supplier.slug %}" 
+                up-target=".content_container" 
+                up-transition="move-left">
+                {{ product.supplier.company_name }}
+                </a>
+                </td>
+                <td>
+                <a 
+                href="{% url 'supplier_detail_view' product.supplier.slug %}" 
+                up-target=".content_container" 
+                up-transition="move-left">
+                {{ product.name }}
+                </a>
+                </td>
+                <td>{{ supplier.contact_no }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="{% static 'Product/Supplier/list_view.js' %}"></script>
+{% endblock extra_js %}

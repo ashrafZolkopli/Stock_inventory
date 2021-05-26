@@ -1,0 +1,81 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1 class="mt-4">Supplier : {{supplier.company_name}}</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item "> <a href="{% url 'supplier_list_view' %}" up-target=".content_container" up-transition="move-right">Supplier</a></li>
+    <li class="breadcrumb-item active">{{ supplier.company_name}}</li>
+</ol>
+<div class="card mb-4">
+    <div class="card-header">
+        Supplier Detail : {{ supplier.company_name}}
+    </div>
+    <div class="card-body">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Contact Person</th>
+                    <th>Contact Number</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{ supplier.company_name }}</td>
+                <td>{{ supplier.contact_person }}</td>
+                <td>{{ supplier.contact_no }}</td>
+                <td>
+                    <div>
+                        <a href="{% url 'supplier_update_view' supplier.slug %}" up-modal=".simple_create" up-width="50%" ><i class="far fa-edit"></i></a>
+                        <a href="{% url 'supplier_delete_redirect' supplier.slug %}"  up-target=".content_container" up-transition="move-right"><i class="far fa-trash-alt"></i></a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+            <div>
+                <i class="fas fa-table me-1"></i>
+                List of Product
+            </div>
+            <div class="story">
+            <a class="btn btn-primary " href="{% url 'product_create_view' supplier.slug %}" role="button" up-modal=".simple_create" up-width="50%">Create Product</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover table-striped" id="datatablesSimple">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Product Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for product in stock_item  %}
+            <tr>
+                <td><a href="{% url 'product_detail_view' supplier.slug product.product__slug %}" up-target=".content_container" up-transition="move-left">{{ product.product__name }}</a></td>
+                 <td>{{ product.stock }}</td>
+            </tr>    
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="{% static 'Product/Supplier/list_view.js' %}"></script>
+{% endblock extra_js %}

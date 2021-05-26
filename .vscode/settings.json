@@ -1,0 +1,6 @@
+{
+    "python.pythonPath": "C:\\Users\\Ashraf Zolkopli\\.virtualenvs\\Stock_inventory-uifGNoco\\Scripts\\python.exe",
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/Stock_Inventory",
+    ]
+}

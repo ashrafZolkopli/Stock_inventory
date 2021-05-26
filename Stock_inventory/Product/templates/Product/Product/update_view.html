@@ -1,0 +1,32 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h1 class="mt-4">Create New Product</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item "> <a href="{% url 'supplier_list_view' %}" up-target=".content_container" up-transition="move-right">Supplier</a></li>
+    <li class="breadcrumb-item "> <a href="{% url 'supplier_detail_view' product.supplier.slug %}" up-target=".content_container" up-transition="move-right">{{product.supplier.company_name}}</a></li>
+    <li class="breadcrumb-item "> <a href="{% url 'product_detail_view' product.supplier.slug product.slug %}" up-target=".content_container" up-transition="move-right">{{product.name}}</a></li>
+    <li class="breadcrumb-item active">Create New Product</li>
+</ol>
+<div class="simple_create">
+    <div class="card mb-4">
+        <div class="card-header">
+            Create New Product
+        </div>
+        <div class="card-body">
+            <form id='product_update_form' method="POST" action="{% url 'product_update_view' product.supplier.slug product.slug %}" up-target=".simple_create" up-transition="move-right">
+                {% csrf_token %}
+                {{form|crispy}}
+            </form>
+        </div>
+        <div class="card-footer">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-success float-right" type="submit" form="product_update_form">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
